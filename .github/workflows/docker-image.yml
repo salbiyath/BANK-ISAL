@@ -1,0 +1,17 @@
+name: My Workflow
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: 
+      image: lorisleiva/laravel-docker:7.4
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+    - name: Generate key
+      run: php artisan key:generate
+      # Your Laravel application is ready...
