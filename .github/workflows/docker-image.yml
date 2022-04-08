@@ -18,6 +18,8 @@ jobs:
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
     - name: Rename env file
       run: mv .env.prod .env
+    - name: Install Composer
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Build the Docker image
       run: docker-compose build
     - name: Docker Push
